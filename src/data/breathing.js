@@ -1,0 +1,45 @@
+export const breathingExercises = [
+  {
+    id: "bienen-atem",
+    name: "Bienen-Atem",
+    emoji: "🐝",
+    description: "Summe wie eine Biene und beruhige dich.",
+    bgFrom: "#fef08a",
+    bgTo: "#facc15",
+    circleColor: "#fbbf24",
+    rounds: 5,
+    phases: [
+      { label: "Einatmen", duration: 4, color: "#60a5fa" },
+      { label: "Summen 🎶", duration: 6, color: "#fbbf24" },
+    ],
+  },
+  {
+    id: "bauch-atem",
+    name: "Bauch-Atem",
+    emoji: "🎈",
+    description: "Atme tief in den Bauch – wie ein Ballon, der sich füllt.",
+    bgFrom: "#bae6fd",
+    bgTo: "#38bdf8",
+    circleColor: "#38bdf8",
+    rounds: 5,
+    phases: [
+      { label: "Einatmen", duration: 4, color: "#60a5fa" },
+      { label: "Halten", duration: 2, color: "#a3e635" },
+      { label: "Ausatmen", duration: 6, color: "#c084fc" },
+    ],
+  },
+  {
+    id: "sterne-atem",
+    name: "Sterne-Atem",
+    emoji: "⭐",
+    description: "Atme mit den Fingern – hoch einatmen, runter ausatmen.",
+    bgFrom: "#e9d5ff",
+    bgTo: "#c084fc",
+    circleColor: "#c084fc",
+    rounds: 4,
+    phases: [
+      { label: "Finger hoch – einatmen", duration: 4, color: "#60a5fa" },
+      { label: "Finger runter – ausatmen", duration: 4, color: "#c084fc" },
+    ],
+  },
+];
