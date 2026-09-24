@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Atem Karussell</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF7F2; --ink: #1F2A2E; --muted: #5E6B6E;
+    --sage: #8DB49A; --sage-deep: #4F7A61; --sky: #9ACBE0; --sky-deep: #3F7FA0;
+    --peach: #F4B08E; --peach-deep: #D9774E; --sand: #F1E8DC; --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Inter", sans-serif; color: var(--ink); background: #ddd; -webkit-font-smoothing: antialiased; }
+  .slide { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: var(--bg); padding: 110px 96px 120px; display: flex; flex-direction: column; justify-content: center; }
+  .slide::before, .slide::after { content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; z-index: 0; }
+  .slide::before { width: 700px; height: 700px; background: #CFE6D6; left: -260px; top: -240px; }
+  .slide::after { width: 620px; height: 620px; background: #FBDCC9; right: -260px; bottom: -260px; }
+  .slide.alt::before { background: #D6EAF4; }
+  .slide > * { position: relative; z-index: 1; }
+  .top { position: absolute; top: 56px; left: 96px; right: 96px; display: flex; justify-content: space-between; font-size: 22px; letter-spacing: .28em; font-weight: 600; color: var(--sage-deep); z-index: 1; }
+  .foot { position: absolute; bottom: 52px; left: 96px; right: 96px; display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: var(--muted); font-weight: 600; z-index: 1; }
+  .kicker { font-size: 28px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 26px; }
+  .h1 { font-family: "Fraunces", serif; font-weight: 600; font-size: 96px; line-height: 1.04; letter-spacing: -.02em; }
+  .h2 { font-family: "Fraunces", serif; font-weight: 600; font-size: 74px; line-height: 1.08; letter-spacing: -.015em; }
+  .it { font-style: italic; font-weight: 400; }
+  .body { font-size: 38px; line-height: 1.42; color: var(--muted); font-weight: 500; }
+  .body b { color: var(--ink); font-weight: 700; }
+  .sage { color: var(--sage-deep); } .peach { color: var(--peach-deep); } .sky { color: var(--sky-deep); }
+  .mt1 { margin-top: 22px; } .mt2 { margin-top: 42px; } .mt3 { margin-top: 64px; }
+  .card { background: var(--card); border-radius: 32px; padding: 36px; box-shadow: 0 18px 50px rgba(31,42,46,.08); }
+  .row { display: flex; gap: 26px; }
+  .row .card { flex: 1; }
+  .card .t { font-family: "Fraunces", serif; font-size: 46px; font-weight: 600; margin: 14px 0 8px; }
+  .card .s { font-size: 30px; line-height: 1.4; color: var(--muted); }
+  .icon { width: 78px; height: 78px; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 42px; }
+  .study { background: rgba(255,255,255,.88); border-left: 8px solid var(--sage); border-radius: 22px; padding: 26px 30px; font-size: 29px; line-height: 1.42; color: var(--muted); box-shadow: 0 10px 30px rgba(31,42,46,.06); }
+  .study b { color: var(--ink); }
+  .study .lbl { display: block; font-size: 22px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--sage-deep); margin-bottom: 8px; }
+  .study.pro { border-left-color: var(--sky-deep); } .study.pro .lbl { color: var(--sky-deep); }
+  .study.warn { border-left-color: var(--peach); } .study.warn .lbl { color: var(--peach-deep); }
+  .small { font-size: 23px; }
+  .steps { display: flex; flex-direction: column; gap: 18px; }
+  .step { display: flex; align-items: center; gap: 24px; background: var(--card); border-radius: 26px; padding: 22px 28px; box-shadow: 0 10px 30px rgba(31,42,46,.06); }
+  .step .n { flex: 0 0 96px; height: 96px; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 44px; font-weight: 800; line-height: 1; }
+  .step .n small { font-size: 18px; font-weight: 600; margin-top: 4px; }
+  .step .tx { font-size: 32px; line-height: 1.3; color: var(--muted); }
+  .step .tx b { display: block; color: var(--ink); font-size: 36px; }
+  .c-in { background: #D6EAF4; } .c-hold { background: var(--sand); } .c-out { background: #D5E8DB; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+  .num { font-family: "Fraunces", serif; font-size: 40px; color: var(--peach-deep); font-style: italic; margin-right: 14px; }
+  .swipe { display: inline-flex; align-items: center; gap: 14px; background: var(--ink); color: #fff; padding: 20px 34px; border-radius: 999px; font-size: 28px; font-weight: 600; }
+  .rules { display: flex; flex-direction: column; gap: 18px; }
+  .rule { display: flex; gap: 24px; align-items: center; background: var(--card); border-radius: 26px; padding: 24px 28px; box-shadow: 0 10px 30px rgba(31,42,46,.06); }
+  .rule .ic { flex: 0 0 72px; height: 72px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 38px; }
+  .rule .tx { font-size: 30px; line-height: 1.3; color: var(--muted); }
+  .rule .tx b { color: var(--ink); display: block; font-size: 35px; }
+  .src { font-size: 20px; line-height: 1.5; color: var(--muted); }
+  svg text[font-family="Inter"] { font-family: "Inter", sans-serif; }
+  svg text[font-family="Fraunces"] { font-family: "Fraunces", serif; }
+</style>
+</head>
+<body>
+
+<!-- 1 COVER -->
+<section class="slide">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>1/9</span></div>
+  <svg width="300" height="300" viewBox="0 0 300 300" style="margin-bottom:40px">
+    <defs><radialGradient id="og" cx=".35" cy=".3"><stop offset="0" stop-color="#E6F3EA"/><stop offset="1" stop-color="#8DB49A"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="none" stroke="rgba(79,122,97,.2)" stroke-width="3"/>
+    <circle cx="150" cy="150" r="118" fill="none" stroke="rgba(79,122,97,.3)" stroke-width="3"/>
+    <circle cx="150" cy="150" r="92" fill="url(#og)"/>
+  </svg>
+  <div class="h1">Dein Atem ist die <span class="it sage">Fernbedienung</span> für dein Nervensystem.</div>
+  <div class="body mt2">Yoga trifft Neurowissenschaft: warum bewusstes Atmen wirkt, und 3 Techniken, die <b>wirklich erforscht</b> sind.</div>
+  <div class="mt3"><span class="swipe">Wischen →</span></div>
+</section>
+
+<!-- 2 GAS & BRAKE -->
+<section class="slide alt">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>2/9</span></div>
+  <div class="kicker">So funktioniert's</div>
+  <div class="h2">Gaspedal &amp; Bremse</div>
+  <div class="body mt1">Dein autonomes Nervensystem läuft automatisch. Der Atem ist der <b>einzige Teil davon, den du bewusst steuern kannst</b>.</div>
+  <svg width="888" height="330" viewBox="0 -30 760 285" class="mt2">
+    <defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#F4B08E"/><stop offset=".5" stop-color="#F1E8DC"/><stop offset="1" stop-color="#8DB49A"/></linearGradient></defs>
+    <path d="M 150 230 A 230 230 0 0 1 610 230" fill="none" stroke="url(#gg)" stroke-width="44" stroke-linecap="round"/>
+    <g transform="rotate(42 380 230)"><line x1="380" y1="230" x2="380" y2="50" stroke="#1F2A2E" stroke-width="10" stroke-linecap="round"/></g>
+    <circle cx="380" cy="230" r="20" fill="#1F2A2E"/>
+    <text x="0" y="240" font-family="Inter" font-size="24" font-weight="700" fill="#D9774E">STRESS</text>
+    <text x="720" y="240" font-family="Inter" font-size="24" font-weight="700" fill="#4F7A61" text-anchor="end">RUHE</text>
+  </svg>
+  <div class="row mt2">
+    <div class="card"><div class="icon" style="background:#FDE7DB">⚡</div><div class="t">Sympathikus</div><div class="s">Das Gaspedal. Kampf oder Flucht: Puls ↑, Anspannung ↑</div></div>
+    <div class="card"><div class="icon" style="background:#DDEEE2">🌿</div><div class="t">Parasympathikus</div><div class="s">Die Bremse. Ruhe &amp; Regeneration, gesteuert über den <b style="color:#1F2A2E">Vagusnerv</b>.</div></div>
+  </div>
+</section>
+
+<!-- 3 EXHALE -->
+<section class="slide">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>3/9</span></div>
+  <div class="kicker">Das Geheimnis</div>
+  <div class="h2">Die <span class="it sage">Ausatmung</span> tritt auf die Bremse.</div>
+  <div class="card mt2" style="padding:30px 34px">
+    <svg width="820" height="300" viewBox="0 0 820 300" style="width:100%">
+      <path d="M0 150 C 90 150, 120 60, 200 60 S 330 170, 420 170 S 520 60, 600 60 S 730 170, 820 170" fill="none" stroke="#E07A5F" stroke-width="7"/>
+      <path d="M0 260 C 90 260, 110 180, 180 180 S 320 270, 400 270 S 500 180, 580 180 S 720 270, 820 270" fill="none" stroke="#3F7FA0" stroke-width="7" opacity=".75"/>
+      <text x="0" y="26" font-family="Inter" font-size="24" font-weight="600" fill="#E07A5F">Herzfrequenz</text>
+      <text x="0" y="298" font-family="Inter" font-size="24" font-weight="600" fill="#3F7FA0">Atem</text>
+      <text x="175" y="118" font-family="Inter" font-size="24" font-weight="700" fill="#1F2A2E">ein ↑</text>
+      <text x="380" y="215" font-family="Inter" font-size="24" font-weight="700" fill="#1F2A2E">aus ↓</text>
+    </svg>
+  </div>
+  <div class="body mt2">Beim <b>Einatmen</b> schlägt dein Herz etwas schneller, beim <b>Ausatmen</b> langsamer.</div>
+  <div class="body mt1">→ Atme <b class="sage">länger aus als ein</b>, und dein Körper schaltet auf Ruhe.</div>
+  <div class="body mt1 small">Fachbegriff: respiratorische Sinusarrhythmie</div>
+</section>
+
+<!-- 4 YOGA x SCIENCE -->
+<section class="slide alt">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>4/9</span></div>
+  <div class="kicker">Zwei Sprachen, eine Wahrheit</div>
+  <svg width="888" height="400" viewBox="0 0 860 400">
+    <circle cx="300" cy="200" r="190" fill="#FBDCC9" opacity=".85"/>
+    <circle cx="560" cy="200" r="190" fill="#CFE6D6" opacity=".85"/>
+    <text x="210" y="190" font-family="Fraunces" font-size="46" font-weight="600" fill="#1F2A2E" text-anchor="middle">Yoga</text>
+    <text x="210" y="236" font-family="Inter" font-size="26" fill="#5E6B6E" text-anchor="middle">Pranayama</text>
+    <text x="650" y="190" font-family="Fraunces" font-size="44" font-weight="600" fill="#1F2A2E" text-anchor="middle">Wissenschaft</text>
+    <text x="650" y="236" font-family="Inter" font-size="26" fill="#5E6B6E" text-anchor="middle">HRV · Vagusnerv</text>
+    <text x="430" y="216" font-family="Fraunces" font-style="italic" font-size="48" fill="#4F7A61" text-anchor="middle">Atem</text>
+  </svg>
+  <div class="body mt2">Was Yogis seit Jahrtausenden <b>Pranayama</b> nennen, misst die Forschung heute als <b>Herzratenvariabilität (HRV)</b>: je flexibler dein Herzschlag, desto besser kannst du dich regulieren.</div>
+  <div class="study pro mt2"><span class="lbl">Für Fortgeschrittene</span>Im Hirnstamm sind Atemrhythmus-Neuronen direkt mit dem <b>Wachheitszentrum</b> (Locus coeruleus) verschaltet. Ruhiger Atem → ruhigeres Gehirn. <span class="small">(Yackle et al., Science 2017, Mausmodell)</span></div>
+</section>
+
+<!-- 5 SIGH -->
+<section class="slide">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>5/9</span></div>
+  <div class="head"><div><span class="num">01</span> <span class="kicker">Akut-Stress</span><div class="h2 mt1">Physiologischer Seufzer</div></div></div>
+  <div class="steps mt2">
+    <div class="step"><div class="n c-in">1</div><div class="tx"><b>Tief einatmen</b>durch die Nase</div></div>
+    <div class="step"><div class="n c-in">2</div><div class="tx"><b>Kurz nachatmen</b>noch ein kleiner Zug obendrauf</div></div>
+    <div class="step"><div class="n c-out">3</div><div class="tx"><b>Lang &amp; langsam ausatmen</b>durch den Mund, bis die Lunge leer ist</div></div>
+  </div>
+  <div class="body mt2">1–3 Wiederholungen reichen im Akutmoment. Als Übung: <b>5 Minuten täglich</b>.</div>
+  <div class="study mt2"><span class="lbl">Studie · Stanford 2023</span>5 Min. täglich über 1 Monat hoben die Stimmung <b>stärker als Achtsamkeitsmeditation</b> und senkten die Atemfrequenz in Ruhe. <span class="small">(Balban et al., Cell Reports Medicine)</span></div>
+</section>
+
+<!-- 6 BOX -->
+<section class="slide alt">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>6/9</span></div>
+  <div><span class="num">02</span> <span class="kicker">Fokus unter Druck</span></div>
+  <div class="h2 mt1">Box Breathing <span class="it sky">4-4-4-4</span></div>
+  <div class="steps mt2">
+    <div class="step"><div class="n c-in">4<small>Sek.</small></div><div class="tx"><b>Einatmen</b>durch die Nase</div></div>
+    <div class="step"><div class="n c-hold">4<small>Sek.</small></div><div class="tx"><b>Halten</b>locker, ohne Druck</div></div>
+    <div class="step"><div class="n c-out">4<small>Sek.</small></div><div class="tx"><b>Ausatmen</b>gleichmäßig</div></div>
+    <div class="step"><div class="n c-hold">4<small>Sek.</small></div><div class="tx"><b>Halten</b>dann von vorn, 3–5 Minuten</div></div>
+  </div>
+  <div class="study mt2" style="border-left-color:#9ACBE0"><span class="lbl" style="color:#3F7FA0">Ideal für</span>vor Prüfungen, Meetings, schwierigen Gesprächen. Auch Einsatzkräfte nutzen es. In der Stanford-Studie senkte es ebenfalls Angst und hob die Stimmung.</div>
+</section>
+
+<!-- 7 4-7-8 -->
+<section class="slide">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>7/9</span></div>
+  <div class="head">
+    <div><span class="num">03</span> <span class="kicker">Einschlafen &amp; Abschalten</span><div class="h2 mt1">4-7-8 Atmung</div></div>
+  </div>
+  <div class="steps mt2">
+    <div class="step"><div class="n c-in">4<small>Sek.</small></div><div class="tx"><b>Einatmen</b>leise durch die Nase</div></div>
+    <div class="step"><div class="n c-hold">7<small>Sek.</small></div><div class="tx"><b>Halten</b>entspannt, Schultern weich</div></div>
+    <div class="step"><div class="n c-out">8<small>Sek.</small></div><div class="tx"><b>Ausatmen</b>hörbar durch den Mund</div></div>
+  </div>
+  <div class="body mt2">4 Runden, gern abends im Bett. Die sehr lange Ausatmung aktiviert die Bremse besonders stark.</div>
+  <div class="study warn mt2"><span class="lbl">Anfänger-Tipp</span>7 Sekunden halten ist zu lang? Nimm <b>2 – 3,5 – 4</b>. Das <b>Verhältnis</b> zählt, nicht die Zahl. Schwanger oder Bluthochdruck: Atempause weglassen.</div>
+</section>
+
+<!-- 8 RESONANCE -->
+<section class="slide alt">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>8/9</span></div>
+  <div><span class="num">Bonus</span> <span class="kicker">Für Fortgeschrittene</span></div>
+  <div class="h2 mt1">Resonanzatmung</div>
+  <div class="body mt1">5,5 Sek. ein · 5,5 Sek. aus · <b>≈ 6 Atemzüge pro Minute</b></div>
+  <svg width="888" height="300" viewBox="0 0 900 300" class="mt2">
+    <path d="M0 250 C 150 250, 150 50, 300 50 S 450 250, 600 250 S 750 50, 900 50" fill="none" stroke="#8DB49A" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="300" cy="50" r="22" fill="#4F7A61" stroke="#fff" stroke-width="7"/>
+    <text x="100" y="110" font-family="Inter" font-size="30" font-weight="700" fill="#3F7FA0" text-anchor="middle">ein 5,5s</text>
+    <text x="520" y="110" font-family="Inter" font-size="30" font-weight="700" fill="#4F7A61" text-anchor="middle">aus 5,5s</text>
+  </svg>
+  <div class="study pro mt2"><span class="lbl">Warum?</span>Bei diesem Tempo schwingen Atem und Herzschlag im Gleichtakt: Die <b>HRV wird maximal</b>, der Vagusnerv wird trainiert. 10–20 Minuten, am besten mit Timer-App. <span class="small">(Lehrer &amp; Gevirtz 2014)</span></div>
+  <div class="study mt1"><span class="lbl">Yoga-Brücke</span>Das entspricht dem Rhythmus vieler Mantras und Rosenkranz-Gebete. Traditionen haben dieses Tempo intuitiv gefunden. <span class="small">(Bernardi et al., BMJ 2001)</span></div>
+</section>
+
+<!-- 9 RULES -->
+<section class="slide">
+  <div class="top"><span>ATEM · YOGA · WISSENSCHAFT</span><span>9/9</span></div>
+  <div class="kicker">Merke dir</div>
+  <div class="h2">4 goldene Regeln</div>
+  <div class="rules mt2">
+    <div class="rule"><div class="ic" style="background:#D6EAF4">👃</div><div class="tx"><b>Durch die Nase ein</b>Sie filtert, befeuchtet und verlangsamt den Atem.</div></div>
+    <div class="rule"><div class="ic" style="background:#DDEEE2">🌬️</div><div class="tx"><b>Aus länger als ein</b>Das ist der Schalter zur Ruhe.</div></div>
+    <div class="rule"><div class="ic" style="background:#F1E8DC">📅</div><div class="tx"><b>Täglich 5 Minuten</b>Regelmäßig schlägt lang und selten.</div></div>
+    <div class="rule"><div class="ic" style="background:#FDE7DB">💛</div><div class="tx"><b>Schwindelig? Pause.</b>Normal weiteratmen. Nie erzwingen.</div></div>
+  </div>
+  <div class="body mt2" style="font-family:Fraunces;font-size:44px;color:var(--ink)">Dein Atem ist Yoga, <span class="it sage">den du überall dabei hast.</span> 🌿</div>
+  <div class="src mt1">Quellen: Balban et al. 2023 (Cell Rep Med) · Yackle et al. 2017 (Science) · Lehrer &amp; Gevirtz 2014 (Front Psychol) · Bernardi et al. 2001 (BMJ) · Zaccaro et al. 2018 (Front Hum Neurosci)</div>
+</section>
+
+</body>
+</html>

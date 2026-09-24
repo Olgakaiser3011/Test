@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Atem trifft Wissenschaft</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF7F2;
+    --ink: #1F2A2E;
+    --muted: #5E6B6E;
+    --sage: #8DB49A;
+    --sage-deep: #4F7A61;
+    --sky: #9ACBE0;
+    --sky-deep: #3F7FA0;
+    --peach: #F4B08E;
+    --peach-deep: #D9774E;
+    --sand: #F1E8DC;
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Inter", sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+
+  .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; }
+  #b1 { width: 760px; height: 760px; background: #CFE6D6; }
+  #b2 { width: 680px; height: 680px; background: #D6EAF4; }
+  #b3 { width: 560px; height: 560px; background: #FBDCC9; }
+
+  .brand { position: absolute; top: 150px; left: 0; right: 0; text-align: center; font-size: 26px; letter-spacing: .32em; font-weight: 600; color: var(--sage-deep); opacity: .8; }
+  .progress { position: absolute; top: 205px; left: 50%; width: 220px; margin-left: -110px; height: 4px; border-radius: 4px; background: rgba(79,122,97,.15); overflow: hidden; }
+  .progress i { display: block; height: 100%; width: 0; background: var(--sage-deep); border-radius: 4px; }
+
+  .scene { position: absolute; inset: 0; display: none; }
+  .wrap { position: absolute; left: 90px; right: 90px; top: 290px; bottom: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+
+  .kicker { font-size: 30px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 28px; }
+  .h1 { font-family: "Fraunces", serif; font-weight: 600; font-size: 104px; line-height: 1.04; letter-spacing: -.02em; }
+  .h2 { font-family: "Fraunces", serif; font-weight: 600; font-size: 82px; line-height: 1.08; letter-spacing: -.015em; }
+  .h3 { font-family: "Fraunces", serif; font-weight: 600; font-size: 60px; line-height: 1.12; }
+  .it { font-style: italic; font-weight: 400; }
+  .body { font-size: 44px; line-height: 1.38; color: var(--muted); font-weight: 500; }
+  .body b { color: var(--ink); font-weight: 700; }
+  .accent-sage { color: var(--sage-deep); }
+  .accent-peach { color: var(--peach-deep); }
+  .accent-sky { color: var(--sky-deep); }
+  .mt1 { margin-top: 24px; } .mt2 { margin-top: 44px; } .mt3 { margin-top: 70px; }
+
+  .chip { display: inline-flex; align-items: center; gap: 14px; background: var(--card); border-radius: 999px; padding: 18px 32px; font-size: 30px; font-weight: 600; color: var(--ink); box-shadow: 0 10px 30px rgba(31,42,46,.07); }
+  .chip .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--sage); }
+  .study { background: rgba(255,255,255,.85); border-left: 8px solid var(--sage); border-radius: 22px; padding: 26px 32px; font-size: 32px; line-height: 1.4; color: var(--muted); text-align: left; box-shadow: 0 10px 30px rgba(31,42,46,.06); width: 100%; }
+  .study b { color: var(--ink); }
+  .study .lbl { display: block; font-size: 24px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--sage-deep); margin-bottom: 8px; }
+  .study.pro { border-left-color: var(--sky-deep); }
+  .study.pro .lbl { color: var(--sky-deep); }
+  .study.warn { border-left-color: var(--peach); }
+  .study.warn .lbl { color: var(--peach-deep); }
+
+  .card { background: var(--card); border-radius: 36px; padding: 40px 40px; box-shadow: 0 18px 50px rgba(31,42,46,.08); text-align: left; width: 100%; }
+  .row { display: flex; gap: 28px; width: 100%; }
+  .row .card { flex: 1; }
+  .card .t { font-family: "Fraunces", serif; font-size: 50px; font-weight: 600; margin: 14px 0 10px; }
+  .card .s { font-size: 32px; line-height: 1.38; color: var(--muted); }
+  .icon { width: 84px; height: 84px; border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 46px; }
+
+  .tag { position: absolute; font-size: 24px; font-weight: 600; color: var(--muted); background: rgba(255,255,255,.8); padding: 10px 20px; border-radius: 999px; }
+
+  /* breathing visuals */
+  .orb-wrap { position: relative; width: 620px; height: 620px; display: flex; align-items: center; justify-content: center; }
+  .orb { position: absolute; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #E6F3EA, var(--sage) 78%); box-shadow: 0 30px 80px rgba(79,122,97,.25); }
+  .orb-halo { position: absolute; width: 440px; height: 440px; border-radius: 50%; border: 3px solid rgba(79,122,97,.25); }
+  .orb-label { position: relative; z-index: 2; text-align: center; }
+  .orb-label .ph { font-family: "Fraunces", serif; font-size: 64px; font-weight: 600; color: var(--ink); text-shadow: 0 0 24px rgba(255,255,255,.9); }
+  .orb-label .ct { font-size: 120px; font-weight: 800; color: var(--ink); line-height: 1; margin-top: 6px; text-shadow: 0 0 24px rgba(255,255,255,.9); }
+
+  .pattern { display: flex; gap: 12px; width: 100%; margin-top: 12px; }
+  .pattern div { height: 74px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; color: var(--ink); position: relative; overflow: hidden; }
+  .pattern div span { position: relative; z-index: 2; }
+  .pattern div i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: rgba(31,42,46,.12); }
+  .p-in { background: #D6EAF4; } .p-hold { background: var(--sand); } .p-out { background: #D5E8DB; }
+
+  .speed { font-size: 26px; font-weight: 600; color: var(--muted); margin-top: 18px; }
+  .tech-head { display: flex; align-items: baseline; justify-content: center; gap: 24px; }
+  .num { font-family: "Fraunces", serif; font-size: 44px; color: var(--peach-deep); font-style: italic; }
+
+  .rules { width: 100%; display: flex; flex-direction: column; gap: 22px; text-align: left; }
+  .rule { display: flex; gap: 26px; align-items: center; background: var(--card); border-radius: 28px; padding: 28px 32px; box-shadow: 0 12px 34px rgba(31,42,46,.06); }
+  .rule .ic { flex: 0 0 76px; height: 76px; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+  .rule .tx { font-size: 36px; line-height: 1.3; font-weight: 500; color: var(--muted); }
+  .rule .tx b { color: var(--ink); font-weight: 700; display: block; font-size: 40px; }
+  svg text[font-family="Inter"] { font-family: "Inter", sans-serif; }
+  svg text[font-family="Fraunces"] { font-family: "Fraunces", serif; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" id="b1"></div>
+  <div class="blob" id="b2"></div>
+  <div class="blob" id="b3"></div>
+  <div class="brand">ATEM · YOGA · WISSENSCHAFT</div>
+  <div class="progress"><i id="prog"></i></div>
+
+  <!-- 1 HOOK -->
+  <section class="scene" id="s1">
+    <div class="wrap">
+      <div class="orb-wrap" style="width:520px;height:520px;margin-bottom:40px" data-in="0">
+        <div class="orb-halo" id="s1halo"></div>
+        <div class="orb" id="s1orb" style="width:340px;height:340px"></div>
+      </div>
+      <div class="h1" data-in="0.3">Über <span class="accent-sage">20.000</span> Atemzüge</div>
+      <div class="body mt1" data-in="1.0" style="font-size:50px">machst du jeden Tag.</div>
+      <div class="h3 mt2 it accent-peach" data-in="2.2">Fast keinen davon bewusst.</div>
+    </div>
+  </section>
+
+  <!-- 2 REMOTE -->
+  <section class="scene" id="s2">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Das Besondere am Atem</div>
+      <div class="h2" data-in="0.2">Dein Atem ist die <span class="it accent-sage">Fernbedienung</span> für dein Nervensystem.</div>
+      <div class="body mt2" data-in="1.4">Herzschlag, Verdauung, Stress&nbsp;– all das läuft <b>automatisch</b>.</div>
+      <div class="body mt1" data-in="2.6">Der Atem auch. Aber ihn kannst du <b>bewusst steuern</b>&nbsp;– und damit alles andere mit.</div>
+    </div>
+  </section>
+
+  <!-- 3 GAS / BRAKE -->
+  <section class="scene" id="s3">
+    <div class="wrap">
+      <div class="kicker" data-in="0">So funktioniert's</div>
+      <div class="h2" data-in="0.15">Gaspedal &amp; Bremse</div>
+      <svg width="760" height="420" viewBox="0 0 760 420" class="mt2" data-in="0.5">
+        <defs>
+          <linearGradient id="gg" x1="0" x2="1">
+            <stop offset="0" stop-color="#F4B08E"/><stop offset=".5" stop-color="#F1E8DC"/><stop offset="1" stop-color="#8DB49A"/>
+          </linearGradient>
+        </defs>
+        <path d="M 80 380 A 300 300 0 0 1 680 380" fill="none" stroke="url(#gg)" stroke-width="54" stroke-linecap="round"/>
+        <g id="needle" transform="rotate(-50 380 380)">
+          <line x1="380" y1="380" x2="380" y2="130" stroke="#1F2A2E" stroke-width="12" stroke-linecap="round"/>
+        </g>
+        <circle cx="380" cy="380" r="26" fill="#1F2A2E"/>
+        <text x="70" y="418" font-family="Inter" font-size="28" font-weight="700" fill="#D9774E">STRESS</text>
+        <text x="690" y="418" font-family="Inter" font-size="28" font-weight="700" fill="#4F7A61" text-anchor="end">RUHE</text>
+      </svg>
+      <div class="row mt2">
+        <div class="card" data-in="1.2">
+          <div class="icon" style="background:#FDE7DB">⚡</div>
+          <div class="t">Sympathikus</div>
+          <div class="s">Gaspedal: Kampf oder Flucht. Puls&nbsp;↑, Anspannung&nbsp;↑</div>
+        </div>
+        <div class="card" data-in="2.0">
+          <div class="icon" style="background:#DDEEE2">🌿</div>
+          <div class="t">Parasympathikus</div>
+          <div class="s">Bremse: Ruhe, Verdauung, Regeneration. Über den <b style="color:#1F2A2E">Vagusnerv</b>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 EXHALE / RSA -->
+  <section class="scene" id="s4">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Das Geheimnis</div>
+      <div class="h2" data-in="0.15">Die <span class="it accent-sage">Ausatmung</span> tritt auf die Bremse.</div>
+      <div class="card mt2" data-in="0.8" style="padding:34px 36px 26px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="display:flex;align-items:center;gap:18px">
+            <svg id="heart" width="70" height="64" viewBox="0 0 24 22"><path d="M12 21.6 10.3 20C4.2 14.5 0 10.8 0 6.3 0 2.7 2.8 0 6.3 0c2 0 4 1 5.7 2.5C13.7 1 15.7 0 17.7 0 21.2 0 24 2.7 24 6.3c0 4.5-4.2 8.2-10.3 13.7z" fill="#E07A5F"/></svg>
+            <div><div style="font-size:26px;font-weight:600;color:#5E6B6E">Puls</div><div style="font-size:54px;font-weight:800" id="bpm">66</div></div>
+          </div>
+          <div id="phaseTag" style="font-size:34px;font-weight:700;padding:14px 26px;border-radius:999px;background:#D6EAF4">Einatmen</div>
+        </div>
+        <svg width="820" height="300" viewBox="0 0 820 300" style="margin-top:10px;width:100%">
+          <polyline id="hrLine" fill="none" stroke="#E07A5F" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" points=""/>
+          <polyline id="brLine" fill="none" stroke="#3F7FA0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" opacity=".75" points=""/>
+          <text x="0" y="296" font-family="Inter" font-size="24" font-weight="600" fill="#3F7FA0">Atem</text>
+          <text x="0" y="24" font-family="Inter" font-size="24" font-weight="600" fill="#E07A5F">Herzfrequenz</text>
+        </svg>
+      </div>
+      <div class="body mt2" data-in="2.0" style="font-size:40px">Einatmen: Herz wird <b>schneller</b>. Ausatmen: Herz wird <b>langsamer</b>.</div>
+      <div class="body mt1" data-in="3.4" style="font-size:40px">→ Atme <b class="accent-sage">länger aus als ein</b>, und dein Körper schaltet auf Ruhe.</div>
+      <div class="speed" data-in="4.2">Fachbegriff: respiratorische Sinusarrhythmie</div>
+    </div>
+  </section>
+
+  <!-- 5 YOGA x SCIENCE -->
+  <section class="scene" id="s5">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Zwei Sprachen, eine Wahrheit</div>
+      <svg width="860" height="440" viewBox="0 0 860 440" data-in="0.2">
+        <g id="vL"><circle cx="300" cy="220" r="200" fill="#FBDCC9" opacity=".85"/>
+          <text x="210" y="205" font-family="Fraunces" font-size="46" font-weight="600" fill="#1F2A2E" text-anchor="middle">Yoga</text>
+          <text x="210" y="252" font-family="Inter" font-size="26" fill="#5E6B6E" text-anchor="middle">Pranayama</text></g>
+        <g id="vR"><circle cx="560" cy="220" r="200" fill="#CFE6D6" opacity=".85"/>
+          <text x="650" y="205" font-family="Fraunces" font-size="46" font-weight="600" fill="#1F2A2E" text-anchor="middle">Wissenschaft</text>
+          <text x="650" y="252" font-family="Inter" font-size="26" fill="#5E6B6E" text-anchor="middle">HRV · Vagusnerv</text></g>
+        <text id="vC" x="430" y="236" font-family="Fraunces" font-style="italic" font-size="48" fill="#4F7A61" text-anchor="middle">Atem</text>
+      </svg>
+      <div class="body mt2" data-in="1.2">Was Yogis seit Jahrtausenden <b>Pranayama</b> nennen, misst die Forschung heute als <b>Herzratenvariabilität</b>.</div>
+      <div class="study pro mt2" data-in="2.6"><span class="lbl">Für Fortgeschrittene</span>Im Hirnstamm sind Atemrhythmus-Neuronen direkt mit dem <b>Wachheitszentrum</b> (Locus coeruleus) verschaltet. Ruhiger Atem → ruhigeres Gehirn. <span style="font-size:26px">(Yackle et al., Science 2017, Mausmodell)</span></div>
+    </div>
+  </section>
+
+  <!-- 6 TITLE -->
+  <section class="scene" id="s6">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Keine Esoterik, nur Evidenz</div>
+      <div class="h1" data-in="0.2"><span class="accent-sage">3</span> Atemtechniken,</div>
+      <div class="h1 it" data-in="0.5" style="font-weight:400">die wirklich erforscht sind.</div>
+      <div class="mt3" data-in="1.1" style="display:flex;flex-direction:column;gap:18px;align-items:center">
+        <div class="chip"><span class="dot" style="background:#F4B08E"></span>Physiologischer Seufzer</div>
+        <div class="chip"><span class="dot" style="background:#9ACBE0"></span>Box Breathing</div>
+        <div class="chip"><span class="dot"></span>4-7-8 Atmung</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 SIGH -->
+  <section class="scene" id="s7">
+    <div class="wrap">
+      <div class="tech-head" data-in="0"><span class="num">01</span><span class="kicker" style="margin:0">Akut-Stress</span></div>
+      <div class="h2" data-in="0.1">Physiologischer Seufzer</div>
+      <div class="orb-wrap mt1" data-in="0.3" style="height:540px">
+        <div class="orb-halo" id="s7halo"></div>
+        <div class="orb" id="s7orb" style="background:radial-gradient(circle at 35% 30%,#FFF1E8,#F4B08E 80%)"></div>
+        <div class="orb-label"><div class="ph" id="s7ph">Einatmen</div><div class="speed" id="s7sub" style="color:var(--ink);font-size:34px;margin-top:8px">durch die Nase</div></div>
+      </div>
+      <div class="pattern" data-in="0.5">
+        <div class="p-in" style="flex:2"><i id="s7p0"></i><span>Ein</span></div>
+        <div class="p-in" style="flex:1"><i id="s7p1"></i><span>+ Ein</span></div>
+        <div class="p-out" style="flex:6"><i id="s7p2"></i><span>Lang aus durch den Mund</span></div>
+      </div>
+      <div class="study mt2" data-in="1.5"><span class="lbl">Studie · Stanford 2023</span>5 Min. täglich über 1 Monat hoben die Stimmung <b>stärker als Achtsamkeitsmeditation</b>. <span style="font-size:26px">(Balban et al., Cell Reports Medicine)</span></div>
+    </div>
+  </section>
+
+  <!-- 8 BOX -->
+  <section class="scene" id="s8">
+    <div class="wrap">
+      <div class="tech-head" data-in="0"><span class="num">02</span><span class="kicker" style="margin:0">Fokus unter Druck</span></div>
+      <div class="h2" data-in="0.1">Box Breathing <span class="it accent-sky" style="font-weight:400">4-4-4-4</span></div>
+      <div style="position:relative;width:560px;height:560px" class="mt2" data-in="0.3">
+        <svg width="560" height="560" viewBox="0 0 560 560" style="position:absolute;inset:0">
+          <rect x="40" y="40" width="480" height="480" rx="48" fill="rgba(255,255,255,.75)" stroke="#D6EAF4" stroke-width="16"/>
+          <path id="boxTrail" d="" fill="none" stroke="#3F7FA0" stroke-width="16" stroke-linecap="round"/>
+          <circle id="boxDot" cx="40" cy="520" r="26" fill="#3F7FA0" stroke="#fff" stroke-width="8"/>
+        </svg>
+        <div class="tag" style="left:50%;top:-6px;transform:translate(-50%,-50%)">Halten</div>
+        <div class="tag" style="left:-34px;top:50%;transform:translate(-50%,-50%) rotate(-90deg)">Einatmen</div>
+        <div class="tag" style="right:-34px;top:50%;transform:translate(50%,-50%) rotate(90deg)">Ausatmen</div>
+        <div class="tag" style="left:50%;bottom:-6px;transform:translate(-50%,50%)">Halten</div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div id="boxPh" style="font-family:Fraunces;font-size:60px;font-weight:600">Einatmen</div>
+          <div id="boxCt" style="font-size:130px;font-weight:800;color:#3F7FA0;line-height:1">1</div>
+        </div>
+      </div>
+      <div class="speed" data-in="0.3" style="margin-top:56px">je 4 Sekunden · im Video 2× schneller</div>
+      <div class="study mt2" data-in="1.5" style="border-left-color:#9ACBE0"><span class="lbl" style="color:#3F7FA0">Ideal für</span>vor Prüfungen, Meetings, schwierigen Gesprächen. Auch Einsatzkräfte nutzen es. In der Stanford-Studie senkte es ebenfalls Angst und hob die Stimmung.</div>
+    </div>
+  </section>
+
+  <!-- 9 4-7-8 -->
+  <section class="scene" id="s9">
+    <div class="wrap">
+      <div class="tech-head" data-in="0"><span class="num">03</span><span class="kicker" style="margin:0">Einschlafen &amp; Abschalten</span></div>
+      <div class="h2" data-in="0.1">4-7-8 Atmung</div>
+      <div class="orb-wrap mt1" data-in="0.3" style="height:560px">
+        <svg width="560" height="560" viewBox="0 0 560 560" style="position:absolute">
+          <circle cx="280" cy="280" r="262" fill="none" stroke="rgba(79,122,97,.14)" stroke-width="14"/>
+          <circle id="ring478" cx="280" cy="280" r="262" fill="none" stroke="#4F7A61" stroke-width="14" stroke-linecap="round" stroke-dasharray="1646" stroke-dashoffset="1646" transform="rotate(-90 280 280)"/>
+        </svg>
+        <div class="orb" id="s9orb"></div>
+        <div class="orb-label"><div class="ph" id="s9ph">Einatmen</div><div class="ct" id="s9ct">1</div></div>
+      </div>
+      <div class="pattern" data-in="0.5">
+        <div class="p-in" style="flex:4"><i id="s9p0"></i><span>4 ein (Nase)</span></div>
+        <div class="p-hold" style="flex:7"><i id="s9p1"></i><span>7 halten</span></div>
+        <div class="p-out" style="flex:8"><i id="s9p2"></i><span>8 aus (Mund)</span></div>
+      </div>
+      <div class="speed" data-in="0.5">im Video 2× schneller</div>
+      <div class="study warn mt1" data-in="1.8"><span class="lbl">Anfänger-Tipp</span>7 Sekunden halten ist zu lang? Nimm <b>2 – 3,5 – 4</b>. Das <b>Verhältnis</b> zählt, nicht die Zahl.</div>
+    </div>
+  </section>
+
+  <!-- 10 RESONANCE -->
+  <section class="scene" id="s10">
+    <div class="wrap">
+      <div class="tech-head" data-in="0"><span class="num">Bonus</span><span class="kicker" style="margin:0">Für Fortgeschrittene</span></div>
+      <div class="h2" data-in="0.1">Resonanz&shy;atmung</div>
+      <div class="body mt1" data-in="0.3">5,5 Sek. ein · 5,5 Sek. aus · <b>≈ 6 Atemzüge pro Minute</b></div>
+      <svg width="900" height="360" viewBox="0 0 900 360" class="mt2" data-in="0.5">
+        <path id="resWave" d="" fill="none" stroke="#8DB49A" stroke-width="12" stroke-linecap="round"/>
+        <circle id="resDot" cx="0" cy="180" r="24" fill="#4F7A61" stroke="#fff" stroke-width="7"/>
+        <text id="resLbl" x="450" y="350" font-family="Fraunces" font-size="44" font-weight="600" fill="#1F2A2E" text-anchor="middle">Einatmen</text>
+      </svg>
+      <div class="study pro mt2" data-in="1.4"><span class="lbl">Warum?</span>Bei diesem Tempo schwingen Atem und Herzschlag im Gleichtakt: Die <b>HRV wird maximal</b>, der Vagusnerv trainiert. <span style="font-size:26px">(Lehrer &amp; Gevirtz 2014)</span></div>
+    </div>
+  </section>
+
+  <!-- 11 RULES -->
+  <section class="scene" id="s11">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Merke dir</div>
+      <div class="h2" data-in="0.1">4 goldene Regeln</div>
+      <div class="rules mt2">
+        <div class="rule" data-in="0.5"><div class="ic" style="background:#D6EAF4">👃</div><div class="tx"><b>Durch die Nase ein</b>Sie filtert, befeuchtet und verlangsamt den Atem.</div></div>
+        <div class="rule" data-in="1.1"><div class="ic" style="background:#DDEEE2">🌬️</div><div class="tx"><b>Aus länger als ein</b>Das ist der Schalter zur Ruhe.</div></div>
+        <div class="rule" data-in="1.7"><div class="ic" style="background:#F1E8DC">📅</div><div class="tx"><b>Täglich 5 Minuten</b>Regelmäßig schlägt lang und selten.</div></div>
+        <div class="rule" data-in="2.3"><div class="ic" style="background:#FDE7DB">💛</div><div class="tx"><b>Schwindelig? Pause.</b>Normal weiteratmen. Nie erzwingen.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 OUTRO -->
+  <section class="scene" id="s12">
+    <div class="wrap">
+      <div class="orb-wrap" style="width:460px;height:460px;margin-bottom:30px" data-in="0">
+        <div class="orb-halo" id="s12halo" style="width:300px;height:300px"></div>
+        <div class="orb" id="s12orb" style="width:300px;height:300px"></div>
+      </div>
+      <div class="h2" data-in="0.3">Dein Atem ist Yoga,</div>
+      <div class="h2 it accent-sage" data-in="0.7" style="font-weight:400">den du überall dabei hast.</div>
+      <div class="body mt3" data-in="1.6">Speichern &amp; heute Abend ausprobieren 🌿</div>
+    </div>
+  </section>
+</div>
+
+<script>
+const SCENES = [
+  { id: "s1", dur: 5.5 },
+  { id: "s2", dur: 7 },
+  { id: "s3", dur: 8 },
+  { id: "s4", dur: 10 },
+  { id: "s5", dur: 9 },
+  { id: "s6", dur: 4.5 },
+  { id: "s7", dur: 11 },
+  { id: "s8", dur: 11 },
+  { id: "s9", dur: 12 },
+  { id: "s10", dur: 9 },
+  { id: "s11", dur: 7.5 },
+  { id: "s12", dur: 5.5 },
+];
+let acc = 0;
+for (const s of SCENES) { s.start = acc; acc += s.dur; s.el = document.getElementById(s.id); s.items = [...s.el.querySelectorAll("[data-in]")]; }
+const TOTAL = acc;
+const FADE = 0.55;
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const easeOut = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const lerp = (a, b, p) => a + (b - a) * p;
+const $ = (id) => document.getElementById(id);
+
+// Generic phase sequencer: phases [{name, d, from, to}] -> {i, p, v, elapsed}
+function phaseAt(phases, t) {
+  const cyc = phases.reduce((a, p) => a + p.d, 0);
+  let tt = ((t % cyc) + cyc) % cyc;
+  for (let i = 0; i < phases.length; i++) {
+    const ph = phases[i];
+    if (tt < ph.d) { const p = tt / ph.d; return { i, p, v: lerp(ph.from, ph.to, ease(p)), elapsed: tt, ph }; }
+    tt -= ph.d;
+  }
+  const last = phases.length - 1;
+  return { i: last, p: 1, v: phases[last].to, elapsed: phases[last].d, ph: phases[last] };
+}
+
+const updaters = {
+  s1(t) {
+    const b = 0.5 - 0.5 * Math.cos(t * 2 * Math.PI / 5);
+    $("s1orb").style.transform = `scale(${0.82 + 0.3 * b})`;
+    $("s1halo").style.transform = `scale(${1.05 + 0.4 * b})`;
+    $("s1halo").style.opacity = 0.9 - 0.6 * b;
+  },
+  s3(t) {
+    const breath = Math.sin(t * 2 * Math.PI / 3.2) * 6;
+    const a = lerp(-52, 48, ease((t - 2.4) / 3.2)) + breath * (1 - 0.6 * ease((t - 2.4) / 3.2));
+    $("needle").setAttribute("transform", `rotate(${a} 380 380)`);
+  },
+  s4(t) {
+    // breath volume: 2s inhale, 3.2s exhale
+    const vol = (x) => phaseAt([{ d: 2, from: 0, to: 1 }, { d: 3.2, from: 1, to: 0 }], x).v;
+    const hr = (x) => 62 + 12 * vol(x - 0.35);
+    const W = 820, win = 6.5, now = t + 1.5;
+    let hrPts = [], brPts = [];
+    for (let k = 0; k <= 160; k++) {
+      const x = now - win + (k / 160) * win;
+      const px = (k / 160) * W;
+      hrPts.push(`${px.toFixed(1)},${(150 - (hr(x) - 62) * 8.5).toFixed(1)}`);
+      brPts.push(`${px.toFixed(1)},${(262 - vol(x) * 90).toFixed(1)}`);
+    }
+    $("hrLine").setAttribute("points", hrPts.join(" "));
+    $("brLine").setAttribute("points", brPts.join(" "));
+    const cur = hr(now);
+    $("bpm").textContent = Math.round(cur);
+    const inh = phaseAt([{ d: 2, from: 0, to: 1 }, { d: 3.2, from: 1, to: 0 }], now).i === 0;
+    const tag = $("phaseTag");
+    tag.textContent = inh ? "Einatmen · Puls ↑" : "Ausatmen · Puls ↓";
+    tag.style.background = inh ? "#D6EAF4" : "#D5E8DB";
+    // heartbeat: integrate phase
+    let ph = 0; for (let x = 0; x < now; x += 1 / 60) ph += hr(x) / 60 / 60;
+    const f = ph % 1;
+    $("heart").style.transform = `scale(${1 + 0.18 * Math.exp(-f * 9)})`;
+  },
+  s5(t) {
+    const p = easeOut((t - 0.2) / 1.4);
+    $("vL").setAttribute("transform", `translate(${lerp(-90, 0, p)} 0)`);
+    $("vR").setAttribute("transform", `translate(${lerp(90, 0, p)} 0)`);
+    $("vC").setAttribute("opacity", clamp((t - 1.2) / 0.6));
+  },
+  s7(t) {
+    const tt = Math.max(0, t - 0.6);
+    const P = [
+      { name: "Einatmen", sub: "tief durch die Nase", d: 2, from: 0.55, to: 0.95 },
+      { name: "+ nachatmen", sub: "kurz, Lunge ganz füllen", d: 1, from: 0.95, to: 1.12 },
+      { name: "Ausatmen", sub: "langsam durch den Mund", d: 6, from: 1.12, to: 0.55 },
+    ];
+    const r = phaseAt(P, tt);
+    $("s7orb").style.transform = `scale(${r.v})`;
+    $("s7halo").style.transform = `scale(${r.v * 1.18})`;
+    $("s7halo").style.opacity = 0.8;
+    $("s7ph").textContent = r.ph.name;
+    $("s7sub").textContent = r.ph.sub;
+    for (let i = 0; i < 3; i++) $("s7p" + i).style.width = (i < r.i ? 100 : i === r.i ? r.p * 100 : 0) + "%";
+  },
+  s8(t) {
+    const tt = Math.max(0, t - 0.6);
+    const side = 2; // 4s at 2x
+    const cyc = side * 4;
+    const u = (tt % cyc) / side; // 0..4
+    const i = Math.floor(u), p = u - i;
+    const C = [[40, 520], [40, 40], [520, 40], [520, 520]]; // start bottom-left: up=in, right=hold, down=out, left=hold
+    const a = C[i], b = C[(i + 1) % 4];
+    const x = lerp(a[0], b[0], p), y = lerp(a[1], b[1], p);
+    $("boxDot").setAttribute("cx", x); $("boxDot").setAttribute("cy", y);
+    $("boxTrail").setAttribute("d", `M ${a[0]} ${a[1]} L ${x} ${y}`);
+    const names = ["Einatmen", "Halten", "Ausatmen", "Halten"];
+    $("boxPh").textContent = names[i];
+    $("boxCt").textContent = Math.min(4, Math.floor(p * 4) + 1);
+  },
+  s9(t) {
+    const tt = Math.max(0, t - 0.6);
+    const P = [
+      { name: "Einatmen", d: 2, from: 0.62, to: 1.1, n: 4 },
+      { name: "Halten", d: 3.5, from: 1.1, to: 1.1, n: 7 },
+      { name: "Ausatmen", d: 4, from: 1.1, to: 0.62, n: 8 },
+    ];
+    const r = phaseAt(P, tt);
+    $("s9orb").style.transform = `scale(${r.v})`;
+    $("s9ph").textContent = r.ph.name;
+    $("s9ct").textContent = Math.min(r.ph.n, Math.floor(r.p * r.ph.n) + 1);
+    $("ring478").setAttribute("stroke-dashoffset", 1646 * (1 - r.p));
+    $("ring478").setAttribute("stroke", ["#3F7FA0", "#C9A77C", "#4F7A61"][r.i]);
+    for (let i = 0; i < 3; i++) $("s9p" + i).style.width = (i < r.i ? 100 : i === r.i ? r.p * 100 : 0) + "%";
+  },
+  s10(t) {
+    const tt = Math.max(0, t - 0.6);
+    const per = 5.5; // 11s at 2x
+    const W = 900, amp = 120, cy = 170;
+    let d = "";
+    for (let k = 0; k <= 180; k++) {
+      const x = (k / 180) * W;
+      const y = cy + amp * Math.cos((x / W) * 2 * Math.PI * 1.5);
+      d += (k ? " L " : "M ") + x.toFixed(1) + " " + y.toFixed(1);
+    }
+    $("resWave").setAttribute("d", d);
+    const u = (tt / per) % 1.5; // travels 1.5 cycles across
+    const xd = (u / 1.5) * W;
+    const yd = cy + amp * Math.cos(u * 2 * Math.PI);
+    $("resDot").setAttribute("cx", xd); $("resDot").setAttribute("cy", yd);
+    // u=0 sits at the wave's low point: rising half = inhale, falling half = exhale
+    $("resLbl").textContent = (u % 1) < 0.5 ? "Einatmen" : "Ausatmen";
+  },
+  s12(t) {
+    const b = 0.5 - 0.5 * Math.cos(t * 2 * Math.PI / 5);
+    $("s12orb").style.transform = `scale(${0.85 + 0.25 * b})`;
+    $("s12halo").style.transform = `scale(${1.05 + 0.4 * b})`;
+    $("s12halo").style.opacity = 0.9 - 0.6 * b;
+  },
+};
+
+function render(t) {
+  $("b1").style.transform = `translate(${-200 + 80 * Math.sin(t * .23)}px, ${-120 + 60 * Math.cos(t * .19)}px)`;
+  $("b2").style.transform = `translate(${560 + 70 * Math.cos(t * .21)}px, ${700 + 90 * Math.sin(t * .17)}px)`;
+  $("b3").style.transform = `translate(${-80 + 90 * Math.sin(t * .15 + 1)}px, ${1400 + 70 * Math.cos(t * .2)}px)`;
+  $("prog").style.width = (clamp(t / TOTAL) * 100) + "%";
+
+  for (let n = 0; n < SCENES.length; n++) {
+    const s = SCENES[n];
+    const local = t - s.start;
+    const visible = local >= -FADE && local < s.dur;
+    if (!visible) { s.el.style.display = "none"; continue; }
+    s.el.style.display = "block";
+    const fin = n === 0 ? 1 : ease((local + FADE) / FADE);
+    const fout = n === SCENES.length - 1 ? 1 : 1 - ease((local - (s.dur - FADE)) / FADE);
+    s.el.style.opacity = Math.min(fin, fout);
+    const lt = Math.max(local, 0);
+    for (const el of s.items) {
+      const start = parseFloat(el.dataset.in);
+      const p = easeOut((lt - start) / 0.8);
+      el.style.opacity = n === 0 && start === 0 ? 1 : p;
+      el.style.transform = `translateY(${(1 - p) * 36}px)`;
+    }
+    updaters[s.id]?.(lt);
+  }
+}
+window.TOTAL = TOTAL;
+window.render = render;
+render(0);
+</script>
+</body>
+</html>
