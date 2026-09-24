@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Yoga Wirkung Karussell</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/carousel.css">
+<style>
+  .tl { position: relative; }
+  .tl-line { position: absolute; left: 53px; top: 60px; bottom: 60px; width: 6px; border-radius: 6px; background: var(--sage); }
+  .tl-item { display: flex; align-items: center; gap: 34px; margin-bottom: 40px; position: relative; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot { flex: 0 0 112px; height: 112px; border-radius: 50%; background: #fff; border: 6px solid var(--sage); display: flex; align-items: center; justify-content: center; font-size: 50px; box-shadow: 0 10px 30px rgba(31,42,46,.08); }
+  .tl-tx b { display: block; font-family: "Fraunces", serif; font-size: 52px; font-weight: 600; }
+  .tl-tx span { font-size: 32px; color: var(--muted); }
+  .stat { flex: 1; background: var(--card); border-radius: 30px; padding: 30px 24px; box-shadow: 0 18px 50px rgba(31,42,46,.08); text-align: center; }
+  .stat .v { font-size: 88px; font-weight: 800; line-height: 1; }
+  .stat .u { font-size: 27px; font-weight: 600; color: var(--muted); margin-top: 10px; }
+  .quote { font-family: "Fraunces", serif; font-style: italic; font-size: 64px; line-height: 1.15; }
+  .days { display: flex; gap: 14px; }
+  .day { flex: 1; text-align: center; }
+  .day i { display: block; height: 100px; border-radius: 28px; background: var(--card); box-shadow: 0 10px 30px rgba(31,42,46,.06); }
+  .day span { display: block; margin-top: 10px; font-size: 26px; font-weight: 600; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- 1 COVER -->
+<section class="slide">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>1/9</span></div>
+  <svg width="260" height="260" viewBox="0 0 300 300" style="margin-bottom:40px">
+    <defs><radialGradient id="og" cx=".35" cy=".3"><stop offset="0" stop-color="#E6F3EA"/><stop offset="1" stop-color="#8DB49A"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="none" stroke="rgba(79,122,97,.2)" stroke-width="3"/>
+    <circle cx="150" cy="150" r="118" fill="none" stroke="rgba(79,122,97,.3)" stroke-width="3"/>
+    <circle cx="150" cy="150" r="92" fill="url(#og)"/>
+  </svg>
+  <div class="h1">Was passiert in deinem Körper, <span class="it sage">wenn du mit Yoga anfängst?</span></div>
+  <div class="body mt2">Von der ersten Stunde bis 12 Wochen, belegt durch Studien.</div>
+  <div class="mt3"><span class="swipe">Wischen →</span></div>
+</section>
+
+<!-- 2 TIMELINE -->
+<section class="slide alt">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>2/9</span></div>
+  <div class="kicker">Die Zeitreise</div>
+  <div class="h2">Was Yoga in dir verändert</div>
+  <div class="tl mt3">
+    <div class="tl-line"></div>
+    <div class="tl-item"><div class="tl-dot">🧘</div><div class="tl-tx"><b>Während der Stunde</b><span>Nervensystem schaltet um</span></div></div>
+    <div class="tl-item"><div class="tl-dot">🧠</div><div class="tl-tx"><b>Nach 1 Stunde</b><span>Gehirnchemie verändert sich</span></div></div>
+    <div class="tl-item"><div class="tl-dot">💪</div><div class="tl-tx"><b>Nach 8 Wochen</b><span>Körper wird messbar fitter</span></div></div>
+    <div class="tl-item"><div class="tl-dot">🌿</div><div class="tl-tx"><b>Nach 12 Wochen</b><span>Rücken &amp; Stimmung profitieren</span></div></div>
+  </div>
+</section>
+
+<!-- 3 DURING -->
+<section class="slide">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>3/9</span></div>
+  <div><span class="num">01</span><span class="kicker">Während der Stunde</span></div>
+  <div class="h2 mt1">Dein Körper schaltet auf <span class="it sage">Ruhe</span>.</div>
+  <div class="row mt3">
+    <div class="stat"><div style="font-size:46px">❤️</div><div class="v">82 → 64</div><div class="u">Puls / Min.</div></div>
+    <div class="stat"><div style="font-size:46px">🌬️</div><div class="v">16 → 7</div><div class="u">Atemzüge / Min.</div></div>
+  </div>
+  <div class="small mt1" style="color:var(--muted);text-align:center">Beispielwerte zur Veranschaulichung</div>
+  <div class="body mt3">Langsame Bewegung und bewusster Atem aktivieren den <b>Parasympathikus</b>, die Bremse deines Nervensystems. Puls und Atmung werden ruhiger, Muskeln lassen los.</div>
+</section>
+
+<!-- 4 GABA -->
+<section class="slide alt">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>4/9</span></div>
+  <div><span class="num">02</span><span class="kicker">Nach 1 Stunde</span></div>
+  <div class="h2 mt1">Mehr <span class="it sage">Ruhe-Botenstoff</span> im Gehirn.</div>
+  <div class="card mt2" style="padding:30px 36px 24px">
+    <div style="font-size:26px;font-weight:600;color:#5E6B6E;margin-bottom:8px">Veränderung des GABA-Spiegels nach 60 Minuten</div>
+    <svg width="820" height="300" viewBox="0 0 820 300" style="width:100%">
+      <line x1="0" y1="240" x2="820" y2="240" stroke="#D9D2C7" stroke-width="3"/>
+      <rect x="130" y="238" width="200" height="2" fill="#C9B8A4"/>
+      <rect x="490" y="68" width="200" height="172" rx="12" fill="#4F7A61"/>
+      <text x="230" y="218" font-family="Inter" font-size="42" font-weight="800" fill="#5E6B6E" text-anchor="middle">±0 %</text>
+      <text x="590" y="52" font-family="Inter" font-size="50" font-weight="800" fill="#4F7A61" text-anchor="middle">+27 %</text>
+      <text x="230" y="284" font-family="Inter" font-size="28" font-weight="600" fill="#5E6B6E" text-anchor="middle">Lesen</text>
+      <text x="590" y="284" font-family="Inter" font-size="28" font-weight="700" fill="#1F2A2E" text-anchor="middle">Yoga</text>
+    </svg>
+  </div>
+  <div class="body mt2"><b>GABA</b> ist der Beruhigungs-Botenstoff deines Gehirns. Bei Angst und Stress ist er oft niedrig.</div>
+  <div class="study mt2"><span class="lbl">Studie</span>+27 % GABA nach 60 Min. Yoga, keine Veränderung nach 60 Min. Lesen. Kleine Studie mit erfahrenen Yogis, aber eindrucksvoll. <span class="small">(Streeter et al., 2007)</span></div>
+</section>
+
+<!-- 5 8 WEEKS -->
+<section class="slide">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>5/9</span></div>
+  <div><span class="num">03</span><span class="kicker">Nach 8 Wochen</span></div>
+  <div class="h2 mt1">Beweglicher. Stärker. <span class="it sage">Stabiler.</span></div>
+  <div class="row mt3">
+    <div class="stat"><div style="font-size:54px">🤸</div><div class="v" style="font-size:70px;color:#4F7A61">↑</div><div class="u">Beweglichkeit</div></div>
+    <div class="stat"><div style="font-size:54px">💪</div><div class="v" style="font-size:70px;color:#4F7A61">↑</div><div class="u">Muskelkraft</div></div>
+    <div class="stat"><div style="font-size:54px">🫁</div><div class="v" style="font-size:70px;color:#4F7A61">↑</div><div class="u">Ausdauer</div></div>
+  </div>
+  <div class="body mt3">Nach 8 Wochen Hatha Yoga verbesserten sich alle drei <b>messbar</b>, ganz ohne Fitnessstudio.</div>
+  <div class="study mt2"><span class="lbl">Studie</span>2 Einheiten pro Woche über 8 Wochen. <span class="small">(Tran et al., Preventive Cardiology 2001)</span></div>
+</section>
+
+<!-- 6 12 WEEKS -->
+<section class="slide alt">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>6/9</span></div>
+  <div><span class="num">04</span><span class="kicker">Nach 12 Wochen</span></div>
+  <div class="h2 mt1">Rücken &amp; Stimmung <span class="it sage">profitieren</span>.</div>
+  <div class="card mt2">
+    <div style="display:flex;gap:24px;align-items:center"><div class="icon" style="background:#DDEEE2;flex:0 0 78px">🦴</div><div class="t" style="margin:0">Rückenschmerzen</div></div>
+    <div class="s mt1">Bei chronischen Rückenschmerzen wirkte Yoga <b style="color:#1F2A2E">so gut wie Physiotherapie</b>.</div>
+    <div class="small mt1" style="color:var(--muted)">Saper et al., Annals of Internal Medicine 2017</div>
+  </div>
+  <div class="card mt1">
+    <div style="display:flex;gap:24px;align-items:center"><div class="icon" style="background:#FDE7DB;flex:0 0 78px">☀️</div><div class="t" style="margin:0">Stimmung &amp; Angst</div></div>
+    <div class="s mt1">Yoga verbesserte Stimmung und Angst <b style="color:#1F2A2E">stärker als Gehen</b>, bei gleicher körperlicher Belastung.</div>
+    <div class="small mt1" style="color:var(--muted)">Streeter et al., J Altern Complement Med 2010</div>
+  </div>
+</section>
+
+<!-- 7 HOW OFTEN -->
+<section class="slide">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>7/9</span></div>
+  <div class="kicker">Wie oft?</div>
+  <div class="h2">Der Schlüssel ist <span class="it sage">Regelmäßigkeit</span>.</div>
+  <div class="days mt3">
+    <div class="day"><i style="background:#8DB49A"></i><span>Mo</span></div><div class="day"><i></i><span>Di</span></div>
+    <div class="day"><i></i><span>Mi</span></div><div class="day"><i style="background:#8DB49A"></i><span>Do</span></div>
+    <div class="day"><i></i><span>Fr</span></div><div class="day"><i style="background:#D6EAF4"></i><span>Sa</span></div>
+    <div class="day"><i></i><span>So</span></div>
+  </div>
+  <div class="small mt1" style="color:var(--muted);font-weight:600"><span style="color:#8DB49A">■</span> Kurs &nbsp;&nbsp; <span style="color:#9ACBE0">■</span> kurz zuhause</div>
+  <div class="body mt3">In den meisten Studien: <b>1–2 Kurse pro Woche</b> plus kurze Einheiten zuhause.</div>
+  <div class="body mt1">Nicht die Länge zählt, sondern dass du <b>dranbleibst</b>.</div>
+</section>
+
+<!-- 8 YOGA BRIDGE -->
+<section class="slide alt">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>8/9</span></div>
+  <div class="kicker">Yoga wusste es schon: Abhyasa</div>
+  <div class="quote">„Übung wird fest verwurzelt durch lange Zeit, ohne Unterbrechung, mit Hingabe.“</div>
+  <div class="body mt1 small">Yoga-Sutra 1.14</div>
+  <div class="body mt3">In Wissenschaftssprache:</div>
+  <div class="h2 sage mt1" style="font-size:64px">Anpassung braucht Wiederholung.</div>
+</section>
+
+<!-- 9 OUTRO -->
+<section class="slide">
+  <div class="top"><span>YOGA · KÖRPER · WISSENSCHAFT</span><span>9/9</span></div>
+  <div class="h1" style="font-size:120px">Nicht perfekt.</div>
+  <div class="h1 it sage" style="font-size:120px">Regelmäßig.</div>
+  <div class="body mt3">Die beste Yogastunde ist die, zu der du kommst 🌿</div>
+  <div class="body mt1">Speichern &amp; in 8 Wochen wieder anschauen.</div>
+  <div class="src mt3">Quellen: Streeter et al. 2007 (J Altern Complement Med) · Tran et al. 2001 (Prev Cardiol) · Saper et al. 2017 (Ann Intern Med) · Streeter et al. 2010 (J Altern Complement Med) · Patañjali, Yoga-Sutra 1.14</div>
+</section>
+
+</body>
+</html>

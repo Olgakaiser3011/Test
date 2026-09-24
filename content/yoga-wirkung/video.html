@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Was Yoga verändert</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/video.css">
+<style>
+  .tl { position: relative; width: 100%; text-align: left; }
+  .tl-line { position: absolute; left: 57px; top: 50px; width: 6px; border-radius: 6px; background: var(--sage); height: 0; }
+  .tl-item { display: flex; align-items: center; gap: 38px; margin: 0 0 48px; position: relative; }
+  .tl-dot { flex: 0 0 120px; height: 120px; border-radius: 50%; background: #fff; border: 6px solid var(--sage); display: flex; align-items: center; justify-content: center; font-size: 54px; box-shadow: 0 10px 30px rgba(31,42,46,.08); }
+  .tl-tx b { display: block; font-family: "Fraunces", serif; font-size: 60px; font-weight: 600; color: var(--ink); }
+  .tl-tx span { font-size: 36px; color: var(--muted); }
+  .stat { flex: 1; background: var(--card); border-radius: 32px; padding: 34px 30px; box-shadow: 0 18px 50px rgba(31,42,46,.08); text-align: center; }
+  .stat .v { font-size: 104px; font-weight: 800; line-height: 1; }
+  .stat .u { font-size: 30px; font-weight: 600; color: var(--muted); margin-top: 10px; }
+  .step-num { font-family: "Fraunces", serif; font-style: italic; color: var(--peach-deep); font-size: 44px; }
+  .quote { font-family: "Fraunces", serif; font-style: italic; font-size: 70px; line-height: 1.15; color: var(--ink); }
+  .days { display: flex; gap: 16px; justify-content: center; }
+  .day { width: 104px; text-align: center; }
+  .day i { display: block; width: 104px; height: 104px; border-radius: 30px; background: var(--card); box-shadow: 0 10px 30px rgba(31,42,46,.06); transition: none; }
+  .day span { display: block; margin-top: 12px; font-size: 28px; font-weight: 600; color: var(--muted); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" id="b1"></div>
+  <div class="blob" id="b2"></div>
+  <div class="blob" id="b3"></div>
+  <div class="brand">YOGA · KÖRPER · WISSENSCHAFT</div>
+  <div class="progress"><i id="prog"></i></div>
+
+  <!-- 1 HOOK -->
+  <section class="scene" id="s1">
+    <div class="wrap">
+      <div class="h1" data-in="0">Was passiert in deinem Körper,</div>
+      <div class="h1 it accent-sage mt1" data-in="1.0" style="font-weight:400">wenn du mit Yoga anfängst?</div>
+    </div>
+  </section>
+
+  <!-- 2 TIMELINE -->
+  <section class="scene" id="s2">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Die Zeitreise</div>
+      <div class="tl mt2">
+        <div class="tl-line" id="tlLine"></div>
+        <div class="tl-item" data-in="0.4"><div class="tl-dot">🧘</div><div class="tl-tx"><b>Während der Stunde</b><span>Nervensystem schaltet um</span></div></div>
+        <div class="tl-item" data-in="1.1"><div class="tl-dot">🧠</div><div class="tl-tx"><b>Nach 1 Stunde</b><span>Gehirnchemie verändert sich</span></div></div>
+        <div class="tl-item" data-in="1.8"><div class="tl-dot">💪</div><div class="tl-tx"><b>Nach 8 Wochen</b><span>Körper wird messbar fitter</span></div></div>
+        <div class="tl-item" data-in="2.5" style="margin-bottom:0"><div class="tl-dot">🌿</div><div class="tl-tx"><b>Nach 12 Wochen</b><span>Rücken &amp; Stimmung profitieren</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 DURING -->
+  <section class="scene" id="s3">
+    <div class="wrap">
+      <div class="kicker" data-in="0"><span class="step-num">01</span>&nbsp; Während der Stunde</div>
+      <div class="h2" data-in="0.15">Dein Körper schaltet auf <span class="it accent-sage">Ruhe</span>.</div>
+      <div class="row mt3" data-in="0.6">
+        <div class="stat"><div style="font-size:52px">❤️</div><div class="v" id="hrV">82</div><div class="u">Puls / Min.</div></div>
+        <div class="stat"><div style="font-size:52px">🌬️</div><div class="v" id="brV">16</div><div class="u">Atemzüge / Min.</div></div>
+      </div>
+      <div class="speed" data-in="0.6">Beispielwerte zur Veranschaulichung</div>
+      <div class="body mt2" data-in="2.2">Langsame Bewegung und bewusster Atem aktivieren den <b>Parasympathikus</b>, die Bremse deines Nervensystems.</div>
+    </div>
+  </section>
+
+  <!-- 4 GABA -->
+  <section class="scene" id="s4">
+    <div class="wrap">
+      <div class="kicker" data-in="0"><span class="step-num">02</span>&nbsp; Nach 1 Stunde</div>
+      <div class="h2" data-in="0.15">Mehr <span class="it accent-sage">Ruhe-Botenstoff</span> im Gehirn.</div>
+      <div class="card mt2" data-in="0.6" style="padding:36px 40px 30px">
+        <div style="font-size:28px;font-weight:600;color:#5E6B6E;margin-bottom:10px">Veränderung des GABA-Spiegels nach 60 Minuten</div>
+        <svg width="820" height="320" viewBox="0 0 820 320" style="width:100%">
+          <line x1="0" y1="260" x2="820" y2="260" stroke="#D9D2C7" stroke-width="3"/>
+          <rect id="barRead" x="130" y="258" width="200" height="2" rx="12" fill="#C9B8A4"/>
+          <rect id="barYoga" x="490" y="258" width="200" height="2" rx="12" fill="#4F7A61"/>
+          <text id="valRead" x="230" y="238" font-family="Inter" font-size="44" font-weight="800" fill="#5E6B6E" text-anchor="middle">±0 %</text>
+          <text id="valYoga" x="590" y="238" font-family="Inter" font-size="54" font-weight="800" fill="#4F7A61" text-anchor="middle">+0 %</text>
+          <text x="230" y="304" font-family="Inter" font-size="30" font-weight="600" fill="#5E6B6E" text-anchor="middle">Lesen</text>
+          <text x="590" y="304" font-family="Inter" font-size="30" font-weight="700" fill="#1F2A2E" text-anchor="middle">Yoga</text>
+        </svg>
+      </div>
+      <div class="body mt2" data-in="2.4" style="font-size:40px"><b>GABA</b> ist der Beruhigungs-Botenstoff deines Gehirns. Bei Angst und Stress ist er oft niedrig.</div>
+      <div class="study mt2" data-in="3.6"><span class="lbl">Studie</span>+27 % GABA nach 60 Min. Yoga, keine Veränderung nach 60 Min. Lesen. Kleine Studie, aber eindrucksvoll. <span style="font-size:26px">(Streeter et al., 2007)</span></div>
+    </div>
+  </section>
+
+  <!-- 5 8 WEEKS -->
+  <section class="scene" id="s5">
+    <div class="wrap">
+      <div class="kicker" data-in="0"><span class="step-num">03</span>&nbsp; Nach 8 Wochen</div>
+      <div class="h2" data-in="0.15">Beweglicher. Stärker. <span class="it accent-sage">Stabiler.</span></div>
+      <div class="row mt3">
+        <div class="stat" data-in="0.6"><div style="font-size:60px">🤸</div><div class="v" style="font-size:80px;color:#4F7A61" id="up1">↑</div><div class="u">Beweglichkeit</div></div>
+        <div class="stat" data-in="1.0"><div style="font-size:60px">💪</div><div class="v" style="font-size:80px;color:#4F7A61" id="up2">↑</div><div class="u">Muskelkraft</div></div>
+        <div class="stat" data-in="1.4"><div style="font-size:60px">🫁</div><div class="v" style="font-size:80px;color:#4F7A61" id="up3">↑</div><div class="u">Ausdauer</div></div>
+      </div>
+      <div class="body mt3" data-in="2.2">Nach 8 Wochen Hatha Yoga verbesserten sich alle drei <b>messbar</b>, ganz ohne Fitnessstudio.</div>
+      <div class="study mt2" data-in="3.2"><span class="lbl">Studie</span>2 Einheiten pro Woche über 8 Wochen. <span style="font-size:26px">(Tran et al., Preventive Cardiology 2001)</span></div>
+    </div>
+  </section>
+
+  <!-- 6 12 WEEKS -->
+  <section class="scene" id="s6">
+    <div class="wrap">
+      <div class="kicker" data-in="0"><span class="step-num">04</span>&nbsp; Nach 12 Wochen</div>
+      <div class="h2" data-in="0.15">Rücken &amp; Stimmung <span class="it accent-sage">profitieren</span>.</div>
+      <div class="card mt2" data-in="0.8">
+        <div style="display:flex;gap:26px;align-items:center"><div class="icon" style="background:#DDEEE2;flex:0 0 84px">🦴</div><div class="t" style="margin:0">Rückenschmerzen</div></div>
+        <div class="s mt1">Bei chronischen Rückenschmerzen wirkte Yoga <b style="color:#1F2A2E">so gut wie Physiotherapie</b>.</div>
+        <div class="s" style="font-size:24px;margin-top:10px">Saper et al., Annals of Internal Medicine 2017</div>
+      </div>
+      <div class="card mt1" data-in="2.0">
+        <div style="display:flex;gap:26px;align-items:center"><div class="icon" style="background:#FDE7DB;flex:0 0 84px">☀️</div><div class="t" style="margin:0">Stimmung &amp; Angst</div></div>
+        <div class="s mt1">Yoga verbesserte Stimmung und Angst <b style="color:#1F2A2E">stärker als Gehen</b>, bei gleicher körperlicher Belastung.</div>
+        <div class="s" style="font-size:24px;margin-top:10px">Streeter et al., J Altern Complement Med 2010</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 HOW OFTEN -->
+  <section class="scene" id="s7">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Wie oft?</div>
+      <div class="h2" data-in="0.15">Der Schlüssel ist <span class="it accent-sage">Regelmäßigkeit</span>.</div>
+      <div class="days mt3" data-in="0.6">
+        <div class="day"><i id="d0"></i><span>Mo</span></div><div class="day"><i id="d1"></i><span>Di</span></div>
+        <div class="day"><i id="d2"></i><span>Mi</span></div><div class="day"><i id="d3"></i><span>Do</span></div>
+        <div class="day"><i id="d4"></i><span>Fr</span></div><div class="day"><i id="d5"></i><span>Sa</span></div>
+        <div class="day"><i id="d6"></i><span>So</span></div>
+      </div>
+      <div class="speed" data-in="1.8" style="margin-top:22px"><span style="color:#8DB49A">■</span> Kurs &nbsp;&nbsp; <span style="color:#9ACBE0">■</span> kurz zuhause</div>
+      <div class="body mt2" data-in="2.0">In den meisten Studien: <b>1–2 Kurse pro Woche</b> plus kurze Einheiten zuhause.</div>
+      <div class="body mt1" data-in="3.0">Nicht die Länge zählt, sondern dass du <b>dranbleibst</b>.</div>
+    </div>
+  </section>
+
+  <!-- 8 YOGA BRIDGE -->
+  <section class="scene" id="s8">
+    <div class="wrap">
+      <div class="kicker" data-in="0">Yoga wusste es schon: Abhyasa</div>
+      <div class="quote" data-in="0.2">„Übung wird fest verwurzelt durch lange Zeit, ohne Unterbrechung, mit Hingabe.“</div>
+      <div class="speed mt1" data-in="0.2">Yoga-Sutra 1.14</div>
+      <div class="body mt3" data-in="2.2">In Wissenschaftssprache:</div>
+      <div class="h3 mt1 accent-sage" data-in="2.8">Anpassung braucht Wiederholung.</div>
+    </div>
+  </section>
+
+  <!-- 9 OUTRO -->
+  <section class="scene" id="s9">
+    <div class="wrap">
+      <div class="orb-wrap" style="width:420px;height:420px;margin-bottom:30px" data-in="0">
+        <div class="orb-halo" id="s9halo" style="width:280px;height:280px"></div>
+        <div class="orb" id="s9orb" style="width:280px;height:280px"></div>
+      </div>
+      <div class="h1" data-in="0.3">Nicht perfekt.</div>
+      <div class="h1 it accent-sage" data-in="0.9" style="font-weight:400">Regelmäßig.</div>
+      <div class="body mt3" data-in="1.8">Die beste Yogastunde ist die, zu der du kommst 🌿</div>
+    </div>
+  </section>
+</div>
+
+<script>
+window.SCENES = [
+  { id: "s1", dur: 5 }, { id: "s2", dur: 6.5 }, { id: "s3", dur: 8 },
+  { id: "s4", dur: 9.5 }, { id: "s5", dur: 8.5 }, { id: "s6", dur: 9 },
+  { id: "s7", dur: 7.5 }, { id: "s8", dur: 7.5 }, { id: "s9", dur: 5.5 },
+];
+window.UPDATERS = {
+  s2(t) {
+    // timeline spine grows as the four stops appear (dot pitch = 120px + 48px gap)
+    $("tlLine").style.height = lerp(0, 3 * 168, ease((t - 0.4) / 2.6)) + "px";
+  },
+  s3(t) {
+    const p = ease((t - 1.0) / 5);
+    $("hrV").textContent = Math.round(lerp(82, 64, p));
+    $("brV").textContent = Math.round(lerp(16, 7, p));
+  },
+  s4(t) {
+    const p = easeOut((t - 1.0) / 1.6);
+    const h = 27 * 7.5 * p; // +27 % -> bar height in px
+    $("barYoga").setAttribute("height", Math.max(2, h));
+    $("barYoga").setAttribute("y", 260 - Math.max(2, h));
+    $("valYoga").setAttribute("y", 238 - h);
+    $("valYoga").textContent = "+" + Math.round(27 * p) + " %";
+    $("barRead").setAttribute("opacity", clamp((t - 0.8) / 0.4));
+  },
+  s5(t) {
+    for (let i = 1; i <= 3; i++) {
+      const bob = Math.max(0, Math.sin((t - 1.6 - i * 0.25) * 3.2));
+      $("up" + i).style.transform = `translateY(${-bob * 12}px)`;
+    }
+  },
+  s7(t) {
+    const on = [0, 3, 5]; // Mo (Kurs), Do (Kurs), Sa (zuhause)
+    on.forEach((d, k) => {
+      const p = easeOut((t - 0.9 - k * 0.35) / 0.4);
+      const el = $("d" + d);
+      el.style.background = p > 0.01 ? (k === 2 ? "#D6EAF4" : "#8DB49A") : "#fff";
+      el.style.transform = `scale(${1 + 0.12 * Math.sin(Math.PI * p)})`;
+    });
+  },
+  s9(t) { breatheOrb("s9orb", "s9halo", t); },
+};
+</script>
+<script src="../shared/engine.js"></script>
+</body>
+</html>

@@ -51,7 +51,7 @@ Visuelles Material für Yoga-Kurse (Anfänger & Fortgeschrittene).
 
 ```bash
 npm i playwright            # plus ffmpeg im PATH oder via FFMPEG=/pfad/zu/ffmpeg
-node render.mjs video       # -> atemuebungen-reel.mp4
-node render.mjs carousel    # -> karussell/*.png
-node render.mjs stills 5,20 # Vorschaubilder bei Sekunde 5 und 20
+node render.mjs atemuebungen video     # -> atemuebungen-reel.mp4 (aus content/)
+node render.mjs atemuebungen carousel  # -> karussell/*.png
+node render.mjs atemuebungen stills 5,20
 ```

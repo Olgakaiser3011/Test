@@ -1,13 +1,16 @@
-// Renders video.html frame by frame to MP4, and carousel.html slides to PNG.
-// Usage: node render.mjs [video|stills|carousel] ; needs playwright + ffmpeg (FFMPEG env var)
+// Renders a topic folder's video.html frame by frame to MP4, and its carousel.html slides to PNG.
+// Usage: node render.mjs <folder> [video|carousel|stills [t1,t2,...]]
+// Needs playwright + ffmpeg (on PATH or via FFMPEG env var).
 import { chromium } from "playwright";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
 
-const dir = path.dirname(fileURLToPath(import.meta.url));
-const mode = process.argv[2] || "video";
+const topic = process.argv[2];
+const mode = process.argv[3] || "video";
+if (!topic) { console.error("usage: node render.mjs <folder> [video|carousel|stills]"); process.exit(1); }
+const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), topic);
 const FPS = 30;
 const ffmpeg = process.env.FFMPEG || "ffmpeg";
 
@@ -29,7 +32,7 @@ if (mode === "carousel") {
   await page.evaluate(() => document.fonts.ready);
   const total = await page.evaluate(() => window.TOTAL);
   if (mode === "stills") {
-    const times = (process.argv[3] || "3,10,18,25,33,40,48,58,70,80,88,95").split(",").map(Number);
+    const times = (process.argv[4] || "3,10,18,25,33,40,48,58").split(",").map(Number);
     fs.mkdirSync(path.join(dir, "preview"), { recursive: true });
     for (const t of times) {
       await page.evaluate((t) => window.render(t), t);
@@ -37,9 +40,9 @@ if (mode === "carousel") {
     }
   } else {
     const frames = Math.round(total * FPS);
-    const ff = spawn(ffmpeg, ["-y", "-f", "image2pipe", "-framerate", String(FPS), "-i", "-",
+    const ff = spawn(ffmpeg, ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-i", "-",
       "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-      path.join(dir, "atemuebungen-reel.mp4")], { stdio: ["pipe", "inherit", "inherit"] });
+      path.join(dir, `${topic}-reel.mp4`)], { stdio: ["pipe", "inherit", "inherit"] });
     for (let f = 0; f < frames; f++) {
       await page.evaluate((t) => window.render(t), f / FPS);
       const buf = await page.screenshot({ type: "jpeg", quality: 95 });
